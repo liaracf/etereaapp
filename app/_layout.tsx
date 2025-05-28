@@ -1,29 +1,47 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-
+import { Tabs} from 'expo-router';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'white', tabBarStyle:{backgroundColor:'black'}, headerStyle:{backgroundColor:'black'} }}>
+
+    <Tabs.Screen
+      name="home"
+      options={{
+        title: 'Home',
+        headerTitle: 'Home',
+        headerTitleStyle: {
+          color: '#fff'
+         },
+        
+        tabBarIcon: ({ color}) => <FontAwesome size={28} name="home" color={color} />,
+      }}
+    />
+
+    <Tabs.Screen
+      name="travels"
+      options={{
+        title: 'Travels',
+        headerTitle: 'Travels',
+        headerTitleStyle: {
+          color: '#fff'
+         },
+        tabBarIcon: ({ color }) => <FontAwesome size={28} name="map-o" color={color} />,
+      }}
+    />
+
+    <Tabs.Screen
+      name="settings"
+      options={{
+        title: 'Perfil',
+        headerTitle: 'Perfil',
+        headerTitleStyle: {
+          color: '#fff'
+         },
+        tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+      }}
+    />
+
+  </Tabs>
   );
 }
